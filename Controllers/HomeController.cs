@@ -18,22 +18,10 @@ namespace TestTask1.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(IList<IFormFile> files)
+        public IActionResult Sort(SortInfoModel model)
         {
-            var file = files.FirstOrDefault();
-
-            if (file == null) {
-                return View("Error");
-            }
-
-            string filename = file.FileName;
-
-            string result = "";
-            using (StreamReader reader = new StreamReader(file.OpenReadStream())) { 
-                result = await reader.ReadToEndAsync();
-            }
-
-            return this.View();
+            ViewData["Sorted"] = model.Text.ToUpper();
+            return this.View("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

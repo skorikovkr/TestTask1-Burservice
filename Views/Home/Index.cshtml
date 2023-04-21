@@ -1,8 +1,38 @@
-﻿@{
+﻿@model SortInfoModel
+
+@{
     ViewData["Title"] = "TestTask 1";
 }
 
-<form asp-controller="Home" asp-action="Index" method="post" enctype="multipart/form-data">
-    <input type="file" name="files" />
-    <input type="submit" value="Загрузить" />
+
+<input type="file" id="selectedFile" accept=".txt">
+<button onclick="readFile(selectedFile)">Загрузить</button>
+
+<form asp-controller="Home" asp-action="Sort" method="post" enctype="multipart/form-data">
+    <input asp-for="Text" id="textInFile" type="hidden"/>
+    <label asp-for="SortType"></label>
+    <select asp-for="SortType">
+        <option value="asc" selected>По возрастанию</option>
+        <option value="desc">По убыванию</option>
+        <option value="reverse">Развернуть</option>
+    </select>
+    <input type="submit" value="Отсортировать" />
 </form>
+
+<p>@ViewData["Sorted"]</p>
+
+
+<script>
+function readFile(input) {
+  let file = input.files[0];
+  if (file == null)
+    return;
+
+  let reader = new FileReader();
+  reader.readAsText(file);
+
+  reader.onload = function() {
+    textInFile.value = reader.result;
+  };
+}
+</script>
