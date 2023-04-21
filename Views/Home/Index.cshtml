@@ -4,12 +4,11 @@
     ViewData["Title"] = "TestTask 1";
 }
 
-
 <input type="file" id="selectedFile" accept=".txt">
 <button onclick="readFile(selectedFile)">Загрузить</button>
 
 <form asp-controller="Home" asp-action="Sort" method="post" enctype="multipart/form-data">
-    <input asp-for="Text" id="textInFile" type="hidden"/>
+    <input asp-for="Text" id="textInFile" type="hidden" value="@ViewData["Initial"]" />
     <label asp-for="SortType"></label>
     <select asp-for="SortType">
         <option value="asc" selected>По возрастанию</option>
@@ -19,6 +18,7 @@
     <input type="submit" value="Отсортировать" />
 </form>
 
+<p id="textContents">@ViewData["Initial"]</p>
 <p>@ViewData["Sorted"]</p>
 
 
@@ -32,7 +32,9 @@ function readFile(input) {
   reader.readAsText(file);
 
   reader.onload = function() {
-    textInFile.value = reader.result;
+    let result = reader.result;
+    textInFile.value = result;
+    textContents.textContent = result;
   };
 }
 </script>
