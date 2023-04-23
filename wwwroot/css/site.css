@@ -16,3 +16,53 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.container {
+    font-size: 1.2rem;
+}
+
+.fileForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.fileForm button {
+    width: 20%;    
+    padding: 1rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+.sortForm {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sortForm input {
+    width: 20%;
+    padding: 1rem;
+}
+
+.sortForm select {
+    width: fit-content;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    height: 500px;
+}
+
+.results p {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 1rem;
+    overflow-x: scroll;
+}

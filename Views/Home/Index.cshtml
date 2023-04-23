@@ -4,37 +4,26 @@
     ViewData["Title"] = "TestTask 1";
 }
 
-<input type="file" id="selectedFile" accept=".txt">
-<button onclick="readFile(selectedFile)">Загрузить</button>
+<div class="container">
+    <div class="fileForm">
+        <label for="selectedFile">Выберите файл:</label>
+        <input type="file" id="selectedFile" accept=".txt">
+        <button onclick="readFile(selectedFile)">Загрузить файл</button>
+    </div>
 
-<form asp-controller="Home" asp-action="Sort" method="post" enctype="multipart/form-data">
-    <input asp-for="Text" id="textInFile" type="hidden" value="@ViewData["Initial"]" />
-    <label asp-for="SortType"></label>
-    <select asp-for="SortType">
-        <option value="asc" selected>По возрастанию</option>
-        <option value="desc">По убыванию</option>
-        <option value="reverse">Развернуть</option>
-    </select>
-    <input type="submit" value="Отсортировать" />
-</form>
+    <form class="sortForm" asp-controller="Home" asp-action="Sort" method="post" enctype="multipart/form-data">
+        <input asp-for="Text" id="textInFile" type="hidden" value="@ViewData["Initial"]" />
+        <label asp-for="SortType">Тип операции:</label>
+        <select asp-for="SortType">
+            <option value="asc" selected>Сортировка по возрастанию</option>
+            <option value="desc">Сортировка по убыванию</option>
+            <option value="reverse">Развернуть</option>
+        </select>
+        <input type="submit" value="Отсортировать" />
+    </form>
 
-<p id="textContents">@ViewData["Initial"]</p>
-<p>@ViewData["Sorted"]</p>
-
-
-<script>
-function readFile(input) {
-  let file = input.files[0];
-  if (file == null)
-    return;
-
-  let reader = new FileReader();
-  reader.readAsText(file);
-
-  reader.onload = function() {
-    let result = reader.result;
-    textInFile.value = result;
-    textContents.textContent = result;
-  };
-}
-</script>
+    <div class="results">
+        <p id="textContents">@ViewData["Initial"]</p>
+        <p>@ViewData["Sorted"]</p>
+    </div>
+</div>

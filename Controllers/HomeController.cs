@@ -21,23 +21,26 @@ namespace TestTask1.Controllers
         [HttpPost]
         public IActionResult Sort(SortInfoModel model)
         {
-            var elements = new MyList<string>(model.Text.Split(",").Select(el => el.Trim()));
-            ViewData["Initial"] = String.Join(", ", elements);
-            switch (model.SortType)
+            if (ModelState.IsValid)
             {
-                case "reverse":
-                    elements.Reverse();
-                    break;
-                case "asc":
-                    elements.Sort();
-                    break;
-                case "desc":
-                    elements.Sort(false);
-                    break;
-                default:
-                    break;
+                var elements = new MyList<string>(model.Text.Split(",").Select(el => el.Trim()));
+                ViewData["Initial"] = String.Join(", ", elements);
+                switch (model.SortType)
+                {
+                    case "reverse":
+                        elements.Reverse();
+                        break;
+                    case "asc":
+                        elements.Sort();
+                        break;
+                    case "desc":
+                        elements.Sort(asc: false);
+                        break;
+                    default:
+                        break;
+                }
+                ViewData["Sorted"] = String.Join(", ", elements);
             }
-            ViewData["Sorted"] = String.Join(", ", elements);
             return this.View("Index");
         }
 

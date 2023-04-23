@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function readFile(input) {
+  let file = input.files[0];
+  if (file == null)
+    return;
 
-// Write your JavaScript code.
+  let reader = new FileReader();
+  reader.readAsText(file);
+
+  reader.onload = function() {
+    let result = reader.result;
+    textInFile.value = result;
+    textContents.textContent = result;
+  };
+}
